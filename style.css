@@ -1,0 +1,139 @@
+/* ==========================================================
+   Colours & fonts — taken from the poster
+   ========================================================== */
+:root {
+  --paper: #EFEBE0;   /* off-white background */
+  --ink:   #16120F;   /* near-black */
+  --red:   #E44235;   /* vermilion */
+  --grey:  #6E675E;   /* secondary text */
+  --rule:  #CFC8B9;   /* thin dividers */
+  --sans: "Space Grotesk", system-ui, sans-serif;
+  --mono: "Space Mono", ui-monospace, monospace;
+  --maxw: 1120px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--red); }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+/* ---------- Navigation ---------- */
+nav {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+}
+nav .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; height: 52px;
+}
+nav .brand { font-weight: 700; text-decoration: none; white-space: nowrap; }
+nav ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: 22px; overflow-x: auto; scrollbar-width: none;
+}
+nav ul a { text-decoration: none; font-size: 13px; text-transform: uppercase; white-space: nowrap; }
+
+/* ---------- Header ---------- */
+header { padding: 64px 0 0; }
+.bar { width: 120px; height: 9px; background: var(--red); margin-bottom: 26px; }
+.kicker { font-size: 15px; margin: 0 0 12px; }
+h1 {
+  font-family: var(--sans); font-weight: 700;
+  font-size: clamp(40px, 7.2vw, 84px);
+  line-height: 0.98; letter-spacing: -0.035em;
+  margin: 0 0 26px; max-width: 17ch;
+}
+.when { font-weight: 700; font-size: 16px; margin: 0 0 4px; }
+.extra { margin: 0; }
+
+/* Generated wave band (see waves.js) */
+.waves { display: block; width: 100%; margin-top: 40px; }
+
+/* ---------- Sections ---------- */
+section { padding: 72px 0 8px; }
+.label {
+  display: flex; align-items: baseline; gap: 14px;
+  border-top: 2px solid var(--ink); padding-top: 14px; margin-bottom: 32px;
+}
+.label .num { font-size: 13px; color: var(--red); font-weight: 700; }
+h2 {
+  font-family: var(--sans); font-weight: 700;
+  font-size: 34px; letter-spacing: -0.02em; line-height: 1; margin: 0;
+}
+h3 { font-family: var(--sans); font-weight: 700; font-size: 20px; margin: 0 0 8px; }
+.lead { font-family: var(--sans); font-size: 21px; line-height: 1.45; max-width: 46ch; margin: 0 0 18px; }
+.muted { color: var(--grey); }
+.organizers p { margin: 0 0 16px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 28px 48px; }
+
+/* ---------- Speakers: red boxes like the poster ---------- */
+.speakers {
+  list-style: none; margin: 0; padding: 0 0 0 14px;
+  columns: 2; column-gap: 40px;   /* always two columns, read top to bottom */
+}
+.speakers li {
+  position: relative; break-inside: avoid; margin-bottom: 30px;
+  background: var(--red); color: #fff;
+  padding: 12px 14px 11px;
+}
+.speakers li::after {           /* thick ink line under each box */
+  content: ""; position: absolute;
+  left: -14px; right: 18px; bottom: -10px; height: 3px;
+  background: var(--ink);
+}
+.speakers .name { font-family: var(--sans); font-weight: 700; font-size: 20px; line-height: 1.15; display: block; }
+.speakers .aff  { font-size: 12px; display: block; margin-top: 4px; }
+.speakers li.tba { background: transparent; color: var(--ink); outline: 2px solid var(--ink); outline-offset: -2px; }
+
+/* ---------- Programme ---------- */
+.days { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border-left: 1px solid var(--rule); }
+.day { border-right: 1px solid var(--rule); padding: 0 14px 14px; }
+.day h3 { font-size: 17px; padding: 6px 0 10px; border-bottom: 2px solid var(--ink); margin-bottom: 6px; }
+.day h3 small { font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--grey); display: block; }
+.slot { display: grid; grid-template-columns: 50px 1fr; gap: 8px; font-size: 13px; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+.slot time { color: var(--grey); }
+.slot span:only-child { grid-column: 1 / -1; }
+.slot.break { color: var(--grey); }
+.slot.hl span { background: var(--red); color: #fff; padding: 0 5px; }
+
+/* ---------- Venue / info boxes (double border, like the poster) ---------- */
+.box { align-self: start; max-width: 560px; border: 2px solid var(--ink); outline: 2px solid var(--ink); outline-offset: 4px; padding: 18px 20px; margin: 6px; }
+.box p { margin: 0 0 8px; }
+.box p:last-child { margin: 0; }
+
+/* ---------- Footer ---------- */
+footer { margin-top: 80px; border-top: 2px solid var(--ink); padding: 34px 0 60px; font-size: 13px; }
+footer .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 28px; align-items: start; }
+footer h4 { font-size: 13px; font-weight: 700; margin: 0 0 6px; }
+footer p { margin: 0; }
+.eu { display: block; height: 44px; width: auto; margin-bottom: 12px; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 860px) {
+  .days { grid-template-columns: 1fr; border-left: 0; }
+  .day { border-right: 0; padding: 0 0 18px; }
+  nav .brand { display: none; }
+}
+@media (max-width: 520px) {
+  .wrap { padding: 0 18px; }
+  header { padding-top: 40px; }
+  .lead { font-size: 18px; }
+  .speakers { column-gap: 22px; padding-left: 10px; }
+  .speakers li { margin-bottom: 24px; }
+  .speakers li { padding: 8px 9px 8px; }
+  .speakers li::after { left: -10px; right: 10px; bottom: -8px; }
+  .speakers .name { font-size: 15px; }
+  .speakers .aff { font-size: 10px; line-height: 1.35; }
+}

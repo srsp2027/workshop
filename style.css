@@ -60,7 +60,7 @@ h1 {
 .funding .logos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 30px; margin-bottom: 12px; }
 .funding img { display: block; height: 56px; width: auto; }
 .funding img.erc { height: 80px; }
-.funding img.confine { height: 52px; }
+.funding img.confine { height: 80px; }
 .funding p { margin: 0; font-size: 13px; }
 .extra { margin: 0; }
 

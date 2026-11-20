@@ -146,6 +146,20 @@
       }
       svg.innerHTML = "";
       svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      // red marker: a tube along the start of the line, above each section title
+      // (same length as the section title's text)
+      if (host.classList.contains("label")) {
+        const h2 = host.querySelector("h2");
+        const len = h2 ? h2.getBoundingClientRect().width : 56;
+        const tube = pts.filter(([x]) => x < len);
+        const k = tube.length;
+        if (k > 0 && k < pts.length) {            // end exactly at the end of the title
+          const [x0, y0] = pts[k - 1], [x1, y1] = pts[k];
+          tube.push([len, y0 + (y1 - y0) * (len - x0) / (x1 - x0)]);
+        }
+        el("polyline", { points: path(tube), fill: "none", stroke: RED, "stroke-width": 7,
+                         "stroke-linejoin": "miter", "stroke-miterlimit": 10, "stroke-linecap": "butt" }, svg);
+      }
       el("polyline", { points: path(pts), fill: "none", stroke: INK, "stroke-width": 2,
                        "stroke-linejoin": "miter", "stroke-miterlimit": 10 }, svg);
     });
@@ -154,4 +168,6 @@
   function drawAll() { document.querySelectorAll("svg.waves").forEach(draw); drawDividers(); }
   let timer; window.addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(drawAll, 150); });
   document.addEventListener("DOMContentLoaded", drawAll);
+  // redraw once the web fonts have loaded, since they change the width of the titles
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
 })();

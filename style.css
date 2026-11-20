@@ -59,8 +59,8 @@ h1 {
 .funding { margin-top: 38px; }   /* space between the dates and the logos */
 .funding .logos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 30px; margin-bottom: 12px; }
 .funding img { display: block; height: 56px; width: auto; }
-.funding img.erc { height: 80px; }
-.funding img.confine { height: 110px; }
+.funding img.erc { height: 120px; }
+.funding img.confine { height: 88px; }
 .funding p { margin: 0; font-size: 13px; }
 .extra { margin: 0; }
 

@@ -53,7 +53,7 @@ h1 {
   font-family: var(--sans); font-weight: 700;
   font-size: clamp(40px, 7.2vw, 84px);
   line-height: 0.98; letter-spacing: -0.035em;
-  margin: 0 0 26px; max-width: 17ch;
+  margin: 0 0 26px;
 }
 .when { font-weight: 700; font-size: 23px; line-height: 1.3; margin: 0 0 22px; }
 .funding img { display: block; height: 42px; width: auto; margin-bottom: 10px; }
@@ -93,12 +93,13 @@ svg.divider { position: absolute; left: 0; top: -14px; width: 100%; height: 28px
 }
 .speakers li {
   position: relative; break-inside: avoid; margin-bottom: 30px;
+  display: inline-block; width: 100%; vertical-align: top;   /* keeps each box and its line together in one column */
   background: var(--red); color: #fff;
   padding: 12px 14px 11px;
 }
 .speakers li::after {           /* thick ink line under each box */
   content: ""; position: absolute;
-  left: -9px; right: -9px; bottom: -10px; height: 3px;
+  left: -9px; right: -9px; bottom: -10px; height: 3px;   /* centred, a bit wider than the box */
   background: var(--ink);
 }
 .speakers .name { font-family: var(--sans); font-weight: 700; font-size: 20px; line-height: 1.15; display: block; }

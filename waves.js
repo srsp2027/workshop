@@ -121,7 +121,37 @@
     targets.forEach(y => el("line", { x1: fIn * step, y1: y, x2: fOut * step, y2: y }, thick));
   }
 
-  function drawAll() { document.querySelectorAll("svg.waves").forEach(draw); }
+  // ---- Optional jagged section dividers ----
+  // Turned on by <body class="jagged">: the straight lines above each section
+  // title (and above the footer) become thin Lipschitz lines like the header.
+  function drawDividers() {
+    if (!document.body.classList.contains("jagged")) return;
+    document.querySelectorAll(".label, footer").forEach(function (host, idx) {
+      let svg = host.querySelector(":scope > svg.divider");
+      if (!svg) {
+        svg = document.createElementNS(NS, "svg");
+        svg.setAttribute("class", "divider"); svg.setAttribute("aria-hidden", "true");
+        host.prepend(svg);
+      }
+      const W = Math.max(200, Math.round(host.getBoundingClientRect().width)), H = 28, mid = H / 2;
+      const R = rng(1000 + 17 * idx + (+document.body.dataset.dividerSeed || 0));
+      const step = W < 600 ? 10 : 14, K = Math.ceil(W / step) + 1, A = 7;
+      const pts = []; let level = 0;
+      for (let k = 0; k < K; k++) {
+        if (k > 1 && k < K - 2 && R() < 0.12) level = Math.round((R() * 2 - 1) * 2) / 4;   // small steps
+        let v = level;
+        if (k > 0 && k < K - 1 && R() < 0.16) v += (R() < 0.5 ? -1 : 1) * (0.6 + R() * 0.6);  // spikes
+        if (k === 0 || k === K - 1) v = 0;
+        pts.push([k * step, mid + A * v]);
+      }
+      svg.innerHTML = "";
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      el("polyline", { points: path(pts), fill: "none", stroke: INK, "stroke-width": 2,
+                       "stroke-linejoin": "miter", "stroke-miterlimit": 10 }, svg);
+    });
+  }
+
+  function drawAll() { document.querySelectorAll("svg.waves").forEach(draw); drawDividers(); }
   let timer; window.addEventListener("resize", () => { clearTimeout(timer); timer = setTimeout(drawAll, 150); });
   document.addEventListener("DOMContentLoaded", drawAll);
 })();
